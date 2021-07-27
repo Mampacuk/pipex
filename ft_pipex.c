@@ -110,17 +110,11 @@ void	ft_testpaths(char *cmd, char **args, char **paths)
 	{
 		temp = ft_strjoin(paths[i], "/");
 		newpath = ft_strjoin(temp, cmd);
-		if (execve(newpath, args, environ) != -1)
-		{
-			free(newpath);
-			free(temp);
-			ft_freecharmatrix(paths);
-			return ;
-		}
+		execve(newpath, args, environ);
 		free(newpath);
 		free(temp);
 		i++;
 	}
-	if (i == ft_charmatrixlen(paths))
-		ft_exit("No such command found.");
+	ft_freecharmatrix(paths);
+	ft_exit("No such command found.");
 }
