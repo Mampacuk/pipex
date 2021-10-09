@@ -6,7 +6,7 @@
 /*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 13:19:25 by aisraely          #+#    #+#             */
-/*   Updated: 2021/10/09 17:42:56 by aisraely         ###   ########.fr       */
+/*   Updated: 2021/10/09 20:48:13 by aisraely         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
  * frees commands 
  */
-void	ft_free_commands()
+void	ft_free_commands(void)
 {
 	int	i;
 
@@ -55,16 +55,10 @@ int	main(int argc, char **argv, char **environ)
 		g_data.here_doc = argv[2];
 		g_data.cmds--;
 	}
-	printf("entering ft_create_commands()\n");
 	ft_create_commands(argv, argc);
-	printf("left ft_create_commands(); entering ft_get_arguments()\n");
 	ft_get_arguments(argv, argc);
-	printf("left ft_get_arguments()\n");
-	
 	g_data.family = ft_calloc(g_data.cmds, sizeof(pid_t));
-	printf("entering ft_fork_processes()\n");
 	ft_fork_processes();
-	printf("entering ft_block_main_process()\n");
 	ft_block_main_process();
 	ft_free_commands();
 }

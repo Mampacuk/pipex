@@ -1,17 +1,16 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/09 20:55:41 by aisraely          #+#    #+#             */
+/*   Updated: 2021/10/09 20:55:42 by aisraely         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// char	*ft_strchr(char *s, int c)
-// {
-// 	if (c == '\0')
-// 		return (&((char *)s)[ft_strlen(s)]);
-// 	while (*s)
-// 	{
-// 		if (*s == c)
-// 			return ((char *)s);
-// 		s++;
-// 	}
-// 	return (NULL);
-// }
+#include "libft.h"
 
 static char	*ft_strjoinfree(char *s1, char *s2)
 {

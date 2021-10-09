@@ -6,7 +6,7 @@
 #    By: aisraely <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/10 13:19:31 by aisraely          #+#    #+#              #
-#    Updated: 2021/10/09 16:58:32 by aisraely         ###   ########.fr        #
+#    Updated: 2021/10/09 20:41:19 by aisraely         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,9 @@ fclean: clean
 
 re: fclean all
 
+norme:
+	norminette -R CheckForbiddenSourceHeader ${wildcard *.c} ${wildcard *.h} ${wildcard libft/*.c} ${wildcard libft/*.h}
+
 bonus: all
 
-.PHONY: clean fclean re all bonus
+.PHONY: clean fclean re all bonus norme

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/09 21:45:42 by aisraely          #+#    #+#             */
+/*   Updated: 2021/10/09 21:45:43 by aisraely         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_word_count(char *str, int d)
@@ -11,8 +23,7 @@ static int	ft_word_count(char *str, int d)
 		return (words);
 	while (str[i])
 	{
-		// dprintf(2, "on [%c]; next one is [%c], the check is (%d)\n", str[i], str[i + 1], !(d == str[i]) && (d == str[i + 1] || str[i + 1] == '\0'));
-		if (!(d == str[i]) && (d == str[i + 1] || str[i + 1] == '\0')) 
+		if (!(d == str[i]) && (d == str[i + 1] || str[i + 1] == '\0'))
 			words++;
 		i++;
 	}
@@ -58,7 +69,7 @@ static void	ft_write_word(char ***mtx, char **str, int i, int d)
 	word_ending = ft_word_ending(*str, d);
 	word_beginning = ft_word_beginning(*str, d);
 	result[i] = ft_calloc(sizeof(char), word_ending
-		- word_beginning + 2);
+			- word_beginning + 2);
 	j = 0;
 	while (word_beginning + j <= word_ending)
 	{
@@ -74,7 +85,7 @@ char	**ft_split(char *str, int d)
 	int		i;
 	int		words;
 	char	*temp;
-	
+
 	words = ft_word_count(str, d);
 	result = ft_calloc(sizeof(char *), words + 1);
 	if (!words || !result)

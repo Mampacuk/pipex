@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_execute.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/09 20:45:57 by aisraely          #+#    #+#             */
+/*   Updated: 2021/10/09 20:45:58 by aisraely         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 static int	ft_error(char *name, char *desc)
@@ -35,8 +47,6 @@ static void	ft_traverse_binaries(t_cmd *cmd)
 	if (ft_getenv("PATH"))
 	{
 		paths = ft_split(ft_getenv("PATH"), ':');
-		// for (int i = 0; paths[i]; i++)
-			// dprintf(2, "paths[%d]:%s\n", i, paths[i]);
 		i = 0;
 		while (paths[i])
 		{
@@ -54,9 +64,6 @@ static void	ft_traverse_binaries(t_cmd *cmd)
 
 void	ft_exec(t_cmd *cmd)
 {
-	printf("cmd's in:%d, out:%d\n", cmd->in, cmd->out);
-	for (int i = 0; cmd->args[i]; i++)
-		printf("arg[%d]:%s\n", i, cmd->args[i]);
 	if (dup2(cmd->in, 0) == -1 || dup2(cmd->out, 1) == -1)
 		ft_exit(NULL, 1);
 	ft_close_descriptors();
