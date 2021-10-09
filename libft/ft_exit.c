@@ -1,7 +1,10 @@
 #include "libft.h"
 
-int	ft_exit(const char *msg, int code)
+void	ft_exit(const char *msg, int code)
 {
-	ft_putstr_fd(msg, 2);
+	if (msg)
+		ft_putstr_fd((char *)msg, 2);
+	else
+		perror(NULL);
 	exit(code);
 }

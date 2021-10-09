@@ -1,6 +1,8 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# define BUFFER_SIZE 512
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>
@@ -92,5 +94,6 @@ t_darr			*ft_darrnew(size_t cap);
 void			ft_darrpushback(t_darr *darr, char *item);
 void			ft_darrclear(t_darr *darr);
 void			ft_darrerase(t_darr *darr, char *item);
+int				get_next_line(int fd, char **line);
 
 #endif

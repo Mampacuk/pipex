@@ -6,75 +6,40 @@
 /*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 13:19:25 by aisraely          #+#    #+#             */
-/*   Updated: 2021/10/09 16:53:06 by aisraely         ###   ########.fr       */
+/*   Updated: 2021/10/09 17:35:05 by aisraely         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_receive_heredoc(void)
-{
-	char	*line;
-	int		pipefd[2];
-	
-	pipe(pipefd);
-	g_data.commands[0].in = pipefd[0];
-	while (1)
-	{
-		get_next_line(0, &line);
-		if (!ft_strcmp(line, g_data.here_doc))
-		{
-			free(line);
-			break ;
-		}
-		ft_putstr_fd(pipefd[1], line);
-		free(line);
-	}
-}
-
-void	ft_parse_commands(char **argv, int argc)
+/*
+ * frees commands 
+ */
+void	ft_free_commands()
 {
 	int	i;
-	int	pipefd[2];
-	
-	if (g_data.here_doc)
+
+	i = 0;
+	if (g_data.commands)
 	{
-		ft_receive_heredoc();
-		g_data.commands[g_data.cmds - 1].out = open(argv[argc - 1],
-			O_APPEND | O_WRONLY | O_CREAT);
-	}
-	else
-	{
-		g_data.commands[0].in = open(argv[1], O_RDONLY, 0644);
-		if (g_data.commands[0].in == -1)
+		while (i < g_data.cmds)
 		{
-			perror("pipex");
-			ft_exit(NULL, 1);
+			if (g_data.commands[i].in != 0 && g_data.commands[i].in != 1)
+				close(g_data.commands[i].in);
+			if (g_data.commands[i].out != 1 && g_data.commands[i].out != 0)
+				close(g_data.commands[i].out);
+			if (g_data.commands[i].args)
+				ft_freematrix(g_data.commands[i].args);
+			i++;
 		}
-		g_data.commands[g_data.cmds - 1].out = open(argv[argc - 1],
-			O_TRUNC | O_WRONLY | O_CREAT);
+		free(g_data.commands);
+		g_data.commands = NULL;
 	}
-	g_data.commands = ft_calloc(sizeof(t_cmd), g_data.cmds);
-	i = 1;
-	while (i < g_data.cmds)
+	if (g_data.family)
 	{
-		pipe(pipefd);
-		g_data.commands[i - 1].out = pipefd[1];
-		g_data.commands[i].in = pipefd[0];
+		free(g_data.family);
+		g_data.family = NULL;
 	}
-}
-
-void	ft_get_arguments(char **argv, int argc)
-{
-	int	i;
-	int	j;
-
-	i = 2;
-	if (g_data.here_doc)
-		i++;
-	j = 0;
-	while (i < argc - 2)
-		g_data.commands[j++].args = ft_split(argv[i++], ' ');
 }
 
 int	main(int argc, char **argv, char **environ)
@@ -83,13 +48,19 @@ int	main(int argc, char **argv, char **environ)
 		ft_exit("Invalid number of arguments\n", 1);
 	ft_inherit_environment(environ);
 	g_data.cmds = argc - 3;
-	if (!ft_strcmp("here_doc"), argv[1]))
+	if (!ft_strcmp("here_doc", argv[1]))
 	{
 		if (argc < 5)
 			ft_exit("Invalid number of arguments\n", 1);
 		g_data.here_doc = argv[2];
 		g_data.cmds--;
 	}
+	printf("entering ft_create_commands()\n");
 	ft_create_commands(argv, argc);
+	printf("left ft_create_commands(); entering ft_get_arguments()\n");
 	ft_get_arguments(argv, argc);
+	g_data.family = ft_calloc(g_data.cmds, sizeof(pid_t));
+	ft_fork_processes();
+	ft_block_main_process();
+	ft_free_commands();
 }

@@ -24,10 +24,12 @@ t_env	g_data;
 /*
  * environment
  */
-void	ft_inherit_environment(char **environ)
-char	*ft_getenv_full(const char *name)
-char	*ft_getenv(const char *name)
-int		ft_isvalididentifier(const char *name)
-char	*ft_separate_identifier(char *decl)
+void	ft_inherit_environment(char **environ);
+void	ft_get_arguments(char **argv, int argc);
+void	ft_create_commands(char **argv, int argc);
+void	ft_receive_heredoc(void);
+void	ft_fork_processes(void);
+void	ft_block_main_process(void);
+t_cmd	*ft_find_command(pid_t pid);
 
 #endif
