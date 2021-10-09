@@ -25,11 +25,22 @@ t_env	g_data;
  * environment
  */
 void	ft_inherit_environment(char **environ);
+char	*ft_getenv(const char *name);
+/*
+ * parsing
+ */
 void	ft_get_arguments(char **argv, int argc);
 void	ft_create_commands(char **argv, int argc);
 void	ft_receive_heredoc(void);
+/*
+ * forking
+ */
 void	ft_fork_processes(void);
 void	ft_block_main_process(void);
 t_cmd	*ft_find_command(pid_t pid);
+/*
+ * executing
+ */
+void	ft_exec(t_cmd *cmd);
 
 #endif

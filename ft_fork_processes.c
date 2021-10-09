@@ -11,7 +11,10 @@ void	ft_fork_processes(void)
 		if (g_data.family[i] == 0)
 		{
 			if (!g_data.commands[i].args)
+			{
+				ft_putstr_fd("EMPTY ARGS!!!\n", 2);
 				exit(0);
+			}
 			ft_exec(&g_data.commands[i]);
 		}
 		i++;
@@ -27,7 +30,9 @@ void	ft_block_main_process(void)
 	i = 0;
 	while (i < g_data.cmds)
 	{
+		printf("starting to wait...\n");
 		returned = wait(NULL);
+		printf("%d returned\n", returned);
 		selected = ft_find_command(returned);
 		if (selected)
 		{
