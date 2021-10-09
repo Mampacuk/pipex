@@ -3,39 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 19:20:27 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/02 19:20:29 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/14 14:44:22 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:01:38 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(char *str, char *to_find, size_t n)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int	i;
-	int	j;
-	int	size;
+	const char	*nstart;
+	size_t		nlen;
 
-	i = 0;
-	if (to_find[0] == '\0')
-		return (str);
-	while (str[i] && n)
+	nlen = ft_strlen(needle);
+	if (!nlen)
+		return ((char *)haystack);
+	nstart = haystack;
+	while (true)
 	{
-		j = 0;
-		size = n;
-		while (str[i + j] == to_find[j])
-		{
-			if (!size)
-				break ;
-			if (to_find[j + 1] == '\0')
-				return (str + i);
-			j++;
-			size--;
-		}
-		i++;
-		n--;
+		nstart = ft_strchr(nstart, *needle);
+		if (nstart - haystack + nlen > len)
+			return (NULL);
+		if (!(ft_strncmp(nstart++, needle, nlen)))
+			return ((char *)--nstart);
 	}
-	return (NULL);
 }

@@ -3,31 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/01 22:22:28 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/01 22:23:11 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/14 14:44:22 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:21:34 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *dest, const void *src, int c, size_t cnt)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char	*str1copy;
-	unsigned char	*str2copy;
-	unsigned char	cc;
+	unsigned char		*d;
+	const unsigned char	*s;
 
-	cc = (unsigned char)c;
-	str1copy = (unsigned char *) dest;
-	str2copy = (unsigned char *) src;
-	while (cnt--)
+	d = dst;
+	s = src;
+	while (n--)
 	{
-		*str1copy = *str2copy;
-		if (*str1copy == cc)
-			return (str1copy + 1);
-		str1copy++;
-		str2copy++;
+		*d = *s;
+		if (*d == (unsigned char)c)
+			return ((void *)++d);
+		d++;
+		s++;
 	}
 	return (NULL);
 }

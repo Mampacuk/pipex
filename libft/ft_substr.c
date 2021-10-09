@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 19:25:44 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/06 19:16:53 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/18 18:18:51 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:00:25 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,19 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*result;
-	unsigned int	i;
+	size_t	sublen;
+	char	*ret;
 
 	if (!s)
 		return (NULL);
-	if ((int)(start + len) > ft_strlen((char *)s))
-		len = ft_strlen((char *)s) - start;
-	result = (char *) malloc(sizeof(char) * (len + 1));
-	if ((s != NULL && *s == '\0') || !(result))
+	if (ft_strlen(s) <= start)
+		return (ft_strdup(""));
+	sublen = ft_strlen(s + start);
+	if (sublen < len)
+		len = sublen;
+	ret = malloc((len + 1) * sizeof(char));
+	if (!ret)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		*(result + i) = *(s + start + i);
-		i++;
-	}
-	*(result + i) = '\0';
-	return (result);
+	ft_strlcpy(ret, s + start, len + 1);
+	return (ret);
 }

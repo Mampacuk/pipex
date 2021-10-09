@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_darrnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 10:53:50 by amamian           #+#    #+#             */
-/*   Updated: 2021/04/20 16:52:12 by amamian          ###   ########.fr       */
+/*   Created: 2021/07/27 18:54:21 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/26 17:00:48 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+/*
+ * initialize a new and empty dynamic array with a given capacity
+ */
+t_darr	*ft_darrnew(size_t cap)
 {
-	if (lst && del)
-	{
-		del(lst->content);
-		free(lst);
-	}
+	t_darr	*darr;
+	char	**ptr;
+
+	darr = ft_calloc(1, sizeof(t_darr));
+	if (!darr)
+		return (NULL);
+	ptr = ft_calloc(cap, sizeof(char *));
+	if (!ptr)
+		return (NULL);
+	darr->ptr = ptr;
+	darr->len = 0;
+	darr->cap = cap;
+	return (darr);
 }

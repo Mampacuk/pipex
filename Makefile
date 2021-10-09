@@ -6,17 +6,17 @@
 #    By: aisraely <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/10 13:19:31 by aisraely          #+#    #+#              #
-#    Updated: 2021/07/10 13:19:32 by aisraely         ###   ########.fr        #
+#    Updated: 2021/10/09 16:58:32 by aisraely         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex
+NAME	= pipex
 
-SRCS = main.c ft_pipex.c
-OBJS = ${SRCS:.c=.o}
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -rf
+SRCS	= ${wildcard *.c}
+OBJS	= ${SRCS:.c=.o}
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
+RM		= rm -rf
 
 all: ${NAME}
 
@@ -33,4 +33,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re all
+bonus: all
+
+.PHONY: clean fclean re all bonus

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/01 22:18:52 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/01 22:19:13 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/20 11:32:23 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:10:48 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*c;
-	t_list	*start;
+	t_list	*ret;
+	void	*fout;
+	t_list	*lstp;
+	t_list	*new;
 
-	start = ft_lstnew(f(lst->content));
-	if (!(start))
-		ft_lstdelone(lst, del);
-	else
+	ret = NULL;
+	lstp = lst;
+	while (lstp)
 	{
-		lst = lst->next;
-		c = start;
+		fout = f(lstp->content);
+		if (fout)
+		{
+			new = ft_lstnew(fout);
+			if (!new)
+			{
+				ft_lstclear(&ret, del);
+				return (NULL);
+			}
+			ft_lstadd_back(&ret, new);
+		}
+		lstp = lstp->next;
 	}
-	while (lst)
-	{
-		c->next = ft_lstnew(f(lst->content));
-		if (!(c->next))
-			ft_lstdelone(lst, del);
-		lst = lst->next;
-		c = c->next;
-	}
-	return (start);
+	return (ret);
 }

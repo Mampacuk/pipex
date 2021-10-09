@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 19:23:16 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/02 19:25:06 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/18 19:40:37 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:00:39 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,19 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	end;
-	size_t	start;
-	char	*result;
+	const char	*end;
+	char		*ret;
 
-	result = 0;
-	if (s1 && set)
-	{
-		start = 0;
-		end = ft_strlen((char *) s1);
-		while (s1[start] && ft_strchr(set, s1[start]))
-			start++;
-		while (s1[end - 1] && ft_strchr(set, s1[end - 1]) && end > start)
-			end--;
-		result = (char *)malloc(sizeof(char) * (end - start + 1));
-		if (result)
-			ft_strlcpy(result, &s1[start], end - start + 1);
-	}
-	return (result);
+	if (!s1 || !set)
+		return (NULL);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	end = s1 + ft_strlen(s1) - 1;
+	while (end >= s1 && ft_strchr(set, *end))
+		end--;
+	ret = malloc((++end - s1 + 1) * sizeof(char));
+	if (!ret)
+		return (NULL);
+	ft_strlcpy(ret, s1, end - s1 + 1);
+	return (ret);
 }

@@ -3,57 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/01 22:12:15 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/06 19:13:45 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/19 18:28:48 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:12:11 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	get_size(long number)
+static size_t	ft_itoalen(int n)
 {
-	size_t	size;
+	size_t	ret;
 
-	if (number < 0)
-		size = 1;
-	else
-		size = 0;
-	while (1)
+	ret = (n <= 0);
+	while (n)
 	{
-		number /= 10;
-		size++;
-		if (number == 0)
-			break ;
+		ret++;
+		n /= 10;
 	}
-	return (size);
+	return (ret);
 }
 
 char	*ft_itoa(int n)
 {
-	long	number;
-	char	*array;
-	size_t	size;
+	size_t	len;
+	char	*ret;
+	bool	neg;
 
-	number = n;
-	size = get_size(n);
-	array = (char *)malloc(size + 1);
-	if (!(array))
+	if (n == INT_MIN)
+		return (ft_strdup("-2147483648"));
+	len = ft_itoalen(n);
+	ret = ft_calloc(len + 1, sizeof(char));
+	if (!ret)
 		return (NULL);
-	if (number < 0)
+	neg = (n < 0);
+	if (neg)
+		n = -n;
+	ret[len] = '\0';
+	while (len)
 	{
-		array[0] = '-';
-		number *= -1;
+		if (!--len && neg)
+			ret[len] = '-';
+		else
+		{
+			ret[len] = (n % 10) + '0';
+			n /= 10;
+		}
 	}
-	array[size] = '\0';
-	while (1)
-	{
-		array[size - 1] = (number % 10) + '0';
-		number /= 10;
-		size--;
-		if (number == 0)
-			break ;
-	}
-	return (array);
+	return (ret);
 }

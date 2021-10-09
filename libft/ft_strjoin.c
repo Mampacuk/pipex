@@ -3,46 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 19:14:41 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/02 19:14:43 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/18 19:17:26 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/21 13:03:23 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_setlens(char *s1, char *s2, int *len1, int *len2)
-{
-	*len1 = ft_strlen((char *)s1);
-	*len2 = ft_strlen((char *)s2);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		len1;
-	int		len2;
-	char	*result;
-	int		i;
+	size_t	len;
+	char	*ret;
 
 	if (!s1 || !s2)
 		return (NULL);
-	ft_setlens((char *) s1, (char *) s2, &len1, &len2);
-	result = (char *) malloc((len1 + len2) * sizeof(char));
-	if (!(result))
+	len = ft_strlen(s1) + ft_strlen(s2);
+	ret = malloc((len + 1) * sizeof(char));
+	if (!ret)
 		return (NULL);
-	i = 0;
-	while (i < len1)
-	{
-		*(result + i) = *(s1 + i);
-		i++;
-	}
-	i = 0;
-	while (i < len2)
-	{
-		*(result + len1 + i) = *(s2 + i);
-		i++;
-	}
-	*(result + len1 + i) = '\0';
-	return (result);
+	ft_strlcpy(ret + ft_strlcpy(ret, s1, len + 1), s2, len + 1);
+	return (ret);
 }

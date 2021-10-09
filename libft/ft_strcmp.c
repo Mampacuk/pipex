@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_charmatrixlen.c                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/10 13:19:54 by aisraely          #+#    #+#             */
-/*   Updated: 2021/07/10 13:19:55 by aisraely         ###   ########.fr       */
+/*   Created: 2021/09/22 14:27:51 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/22 14:29:04 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_charmatrixlen(char **matrix)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	while (matrix[i])
-		i++;
-	return (i);
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (true)
+	{
+		if (!*s1 || !*s2 || *s1 != *s2)
+			return (*(unsigned char *)s1 - *(unsigned char *)s2);
+		s1++;
+		s2++;
+	}
 }

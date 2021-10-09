@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
+/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 10:53:50 by amamian           #+#    #+#             */
-/*   Updated: 2021/04/20 16:52:12 by amamian          ###   ########.fr       */
+/*   Created: 2021/09/27 16:56:51 by aisraely          #+#    #+#             */
+/*   Updated: 2021/09/27 16:56:52 by aisraely         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int	ft_abs(int nb)
 {
-	if (lst && del)
-	{
-		del(lst->content);
-		free(lst);
-	}
+	if (nb < 0)
+		return (-nb);
+	return (nb);
 }

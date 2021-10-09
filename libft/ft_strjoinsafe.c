@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_strjoinsafe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 10:53:50 by amamian           #+#    #+#             */
-/*   Updated: 2021/04/20 16:52:12 by amamian          ###   ########.fr       */
+/*   Created: 2021/09/26 17:09:34 by amamian           #+#    #+#             */
+/*   Updated: 2021/09/26 17:09:35 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+/*
+ * same as ft_strjoin but also frees s1, s2 and sets them to NULL.
+ * doesn't free anything if failed to allocate the joined string.
+ */
+char	*ft_strjoinsafe(char **s1, char **s2)
 {
-	if (lst && del)
-	{
-		del(lst->content);
-		free(lst);
-	}
+	char	*ret;
+
+	if (!s1 || !s2 || !*s1 || !*s2)
+		return (NULL);
+	ret = ft_strjoin(*s1, *s2);
+	if (!ret)
+		return (NULL);
+	free(*s1);
+	free(*s2);
+	*s1 = NULL;
+	*s2 = NULL;
+	return (ret);
 }

@@ -1,35 +1,42 @@
-NAME = libft.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aisraely <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/07/26 17:06:08 by aisraely          #+#    #+#              #
+#    Updated: 2021/10/09 16:53:36 by aisraely         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-AR = ar rc
-RM = rm -f
+SRCS		= $(shell find "." -name "*.c" ! -name "ft_lst*.c")
+BONUSES		= $(shell find "." -name "*.c")
+OBJS		= ${SRCS:.c=.o}
+BONUS_OBJS	= ${BONUSES:.c=.o}
+NAME		= libft.a
+CC			= gcc
+RM			= rm -f
+CFLAGS		= -Wall -Wextra -Werror
+AR			= ar csr
 
-SRC = $(wildcard ft_i*.c) $(wildcard ft_mem*.c) $(wildcard ft_put*.c) \
-  $(wildcard ft_s*.c) $(wildcard ft_to*.c) ft_atoi.c ft_bzero.c ft_calloc.c ft_exit.c ft_charmatrixlen.c ft_freecharmatrix.c
-OBJ = $(SRC:.c=.o)
-BONUS = $(wildcard ft_lst*.c)
-BONUS_OBJ = $(BONUS:.c=.o)
+.c.o:
+	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
+$(NAME): ${OBJS}
+	@${AR} ${NAME} ${OBJS}
 
-$(NAME): 
-	@$(CC) $(CFLAGS) -c $(SRC)
-	@$(AR) $(NAME) $(OBJ)
-	@ranlib $(NAME)
+bonus: ${BONUS_OBJS}
+	@${AR} ${NAME} ${BONUS_OBJS}
 
-all: $(NAME)
-
-bonus:
-	@$(CC) $(CFLAGS) -c $(BONUS) $(SRC)
-	@$(AR) $(NAME) $(OBJ) $(BONUS_OBJ)
-	@ranlib $(NAME)
+all: ${NAME}
 
 clean:
-	@$(RM) $(OBJ) $(BONUS_OBJ)
+	@${RM} ${OBJS} ${BONUS_OBJS}
 
-fclean:  clean
-	@$(RM) $(NAME)
+fclean: clean
+	@${RM} ${NAME}
 
 re: fclean all
 
-.PHONY: clean fclean re all bonus 
+.PHONY: all clean fclean bonus re .c.o

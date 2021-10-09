@@ -3,35 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aisraely <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amamian <amamian@student.42yerevan.am>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/01 22:46:32 by aisraely          #+#    #+#             */
-/*   Updated: 2021/02/01 23:08:21 by aisraely         ###   ########.fr       */
+/*   Created: 2021/04/14 14:44:22 by amamian           #+#    #+#             */
+/*   Updated: 2021/04/20 17:02:06 by amamian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *str1, const void *str2, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char		*str1copy;
-	const char	*str2copy;
+	unsigned char		*d;
+	const unsigned char	*s;
 
-	str1copy = str1;
-	str2copy = str2;
-	if (str1copy == NULL && str1copy == str2copy)
-		return (str1);
-	if (str1copy < str2copy)
+	d = dst;
+	s = src;
+	if (d < s)
 	{
-		while (n--)
-			*str1copy++ = *str2copy++;
+		while (len--)
+			*d++ = *s++;
 	}
 	else
-	{
-		str1copy = str1copy + n - 1;
-		str2copy = str2copy + n - 1;
-		while (n--)
-			*str1copy-- = *str2copy--;
-	}
-	return (str1);
+		ft_memcpy(dst, src, len);
+	return (dst);
 }
